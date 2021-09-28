@@ -1,0 +1,117 @@
+extends layout
+
+block title
+  | #{cert.domain}
+
+mixin dlRow(dt, dtCols, ddCols)
+  - dtClass = dtCols == null ? '' : `col-${dtCols}`
+  - ddClass = ddCols == null ? '' : `col-${ddCols}`
+  dt(class=dtClass) #{dt}
+  dd(class=ddClass)
+    block
+
+mixin dnListRow(title, value)
+  +dlRow(title, 4, 8)
+    block
+
+mixin distinguishedName(entry)
+  dl.row
+    +dnListRow('Common Name (CN)') #{entry.commonName}
+    if entry.organizationalUnitName
+      +dnListRow('Organizational Unit Name (OU)') #{entry.organizationalUnitName}
+    if entry.organizationName
+      +dnListRow('Organization Name (O)') #{entry.organizationName}
+    if entry.localityName
+      +dnListRow('Locality Name (L)') #{entry.localityName}
+    if entry.stateOrProvinceName
+      +dnListRow('State Or Province Name (S)') #{entry.stateOrProvinceName}
+    if entry.countryName
+      +dnListRow('Country Name (C)') #{entry.countryName}
+
+mixin keyUsageBit(title, value)
+  abbr(title=title)
+    if value
+      | 1
+    else
+      | 0
+
+mixin ulArray(array)
+  ul
+    for entry in array
+      li #{entry}
+
+block container
+  div.row.justify-content-center
+    h1.col Inspect certificate for
+      | &nbsp;
+      code #{cert.domain}
+    div.col-2.align-content-center
+      for file in cert.files
+        a.btn.btn-outline-primary.btn-sm(
+          role="button",
+          href=file.href,
+          title=file.title
+          style="text-decoration: none;"
+        ) #{file.title}#{" "}
+        | &nbsp;
+
+  for entry in inspect
+    div.card.mb-2
+      div.card-header
+        h2
+          | #{[entry.subject.domainComponent, entry.subject.countryName, entry.subject.stateOrProvinceName, entry.subject.organizationName, entry.subject.localityName, entry.subject.serialNumber, entry.subject.commonName].filter(v => !!v).join('/')}
+          if entry.isCA
+            | &nbsp;
+            span.badge.bg-secondary.badge-success CA
+      div.card-body
+        div.row
+          div.col-6
+            h3 Subject
+            +distinguishedName(entry.subject)
+          div.col-6
+            h3 Issuer
+            +distinguishedName(entry.issuer)
+          div.col-12
+            dl.row
+              +dlRow("Validity Range", 2, 4)
+                | From&nbsp;
+                abbr(title=entry.intlValidFrom) #{entry.distanceValidFrom}
+                | , To&nbsp;
+                abbr(title=entry.intlValidTo) #{entry.distanceValidTo}
+              dt.col-2 Signature
+              dd.col-4.overflow-hidden
+                abbr.text-nowrap(
+                  title=entry.signatureAlgorithm,
+                  style='text-overflow: ellipsis'
+                ) #{entry.signature.toString('hex')}
+              +dlRow("Serial Number", 2, 4)
+                | #{entry.serialNumber}
+              +dlRow("Key Usages", 2, 4)
+                | #{entry.keyUsages.keyUsage}
+                | &nbsp; (
+                +keyUsageBit('encipherOnly (8)', entry.keyUsages.decipherOnly)
+                +keyUsageBit('sadasd (7)', entry.keyUsages.encipherOnly)
+                +keyUsageBit('cRLSign (6)', entry.keyUsages.cRLSign)
+                +keyUsageBit('keyCertSign (5)', entry.keyUsages.keyCertSign)
+                +keyUsageBit('keyAgreement (4)', entry.keyUsages.keyAgreement)
+                +keyUsageBit('dataEncipherment (3)', entry.keyUsages.dataEncipherment)
+                +keyUsageBit('keyEncipherment (2)', entry.keyUsages.keyEncipherment)
+                +keyUsageBit('nonRepudiation (1)', entry.keyUsages.nonRepudiation)
+                +keyUsageBit('digitalSignature (0)', entry.keyUsages.digitalSignature)
+                | )
+          div.col-6
+            dl.row
+              if entry.dnsNames.length
+                +dlRow("DNS Names", 4, 8)
+                  +ulArray(entry.dnsNames)
+              if entry.emailAddresses.length
+                +dlRow("E-Mails", 4, 8)
+                  +ulArray(entry.emailAddresses)
+          div.col-6
+            dl.row
+              if entry.ipAddresses.length
+                +dlRow("IP Addresses", 4, 8)
+                  +ulArray(entry.ipAddresses)
+              if entry.uris.length
+                +dlRow("URIs", 4, 8)
+                  +ulArray(entry.uris)

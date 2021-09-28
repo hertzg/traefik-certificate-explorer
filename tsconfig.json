@@ -2,6 +2,7 @@
   "extends": "@tsconfig/node14",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "importHelpers": true
   }
 }

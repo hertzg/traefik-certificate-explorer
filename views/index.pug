@@ -1,37 +1,37 @@
-doctype
-html(lang="en")
-  head
-    meta(charset="utf-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
-    link(
-      rel="stylesheet",
-      href="/public/bootstrap.min.css",
-      crossorigin="anonymous"
-    )
-    title #{title}
-  body
-    div.container
-      h1 #{title}
-      table.table.table-hover.table-striped
-        tr
-          th(scope="col") #
-          th(scope="col") Domain
-          th(scope="col") Actions
-        for entry, i in index
-          tr
-            th(scope="row") #{i + 1}
-            td
-              code #{entry.domain}
-                if entry.sans && entry.sans.length
-                  ul
-                    for san in entry.sans
-                      li #{san}
-            td
-              for file in entry.files
-                a.btn.btn-outline-primary.btn-sm(
-                  role="button",
-                  href=file.href,
-                  title=file.title
-                  style="text-decoration: none;"
-                ) #{file.title}#{" "}
-                | &nbsp;
+extends layout
+
+block title
+  | #{title}
+
+block container
+  h1 #{title}
+  table.table.table-hover
+    tr
+      th(scope="col") #
+      th(scope="col") Domain
+      th(scope="col") Validity Range
+      th(scope="col") Actions
+    for entry, i in index
+      tr
+        th(scope="row") #{i + 1}
+        td
+          code
+            a(href=`/inspect/${entry.domain}/fullchain`) #{entry.domain}
+            if entry.sans && entry.sans.length
+              ul
+                for san in entry.sans
+                  li #{san}
+        td
+          | Since&nbsp;
+          abbr(title=entry.inspect.intlValidFrom) #{entry.inspect.distanceValidFrom}
+          | , Expires&nbsp;
+          abbr(title=entry.inspect.intlValidTo) #{entry.inspect.distanceValidTo}
+        td
+          for file in entry.files
+            a.btn.btn-outline-primary.btn-sm(
+              role="button",
+              href=file.href,
+              title=file.title
+              style="text-decoration: none;"
+            ) #{file.title}#{" "}
+            | &nbsp;
