@@ -8,11 +8,11 @@
     "@fidm/x509": "^1.2.1",
     "buffer-json": "^2.0.0",
     "date-fns": "^2.24.0",
+    "decoders": "^1.25.3",
     "express": "^4.17.1",
     "lodash": "^4.17.21",
     "pug": "^3.0.2",
-    "tslib": "^2.3.1",
-    "decoders": "^1.25.3"
+    "tslib": "^2.3.1"
   },
   "scripts": {
     "build": "tsc",
