@@ -5,7 +5,7 @@ import {
   findCertificate,
   getCertificates,
   loadStore,
-} from "./store/store";
+} from "./store";
 import assert from "assert";
 import { Certificate } from "@fidm/x509";
 import { pick as _pick } from "lodash";
@@ -15,6 +15,7 @@ import {
   AcmeCertificate,
   AcmeCertificateResolverStore,
 } from "./store/decoders";
+import { existsSync } from "fs";
 
 const { RESOLVER_PATH = "/data/acme.json" } = process.env;
 assert(RESOLVER_PATH, "Missing RESOLVER_PATH env to load from");
@@ -72,11 +73,11 @@ app.get("/", async (req: Request, res) => {
         files: [
           {
             href: `/attachment/${cert.domain.main}/fullchain.pem`,
-            title: "Certificate",
+            title: "💾 Full chain",
           },
           {
             href: `/attachment/${cert.domain.main}/key.pem`,
-            title: "Private Key",
+            title: "💾 Private Key",
           },
         ],
         inspect: x509 && {
@@ -142,7 +143,7 @@ app.get("/inspect/:domain/:type", async (req, res) => {
       files: [
         {
           href: `/attachment/${cert.domain.main}/fullchain.pem`,
-          title: "Certificate",
+          title: "Full Chain",
         },
         {
           href: `/attachment/${cert.domain.main}/key.pem`,
@@ -230,6 +231,13 @@ app.get("/attachment/:domain/:type.:format", async (req, res) => {
   res.attachment(`${type}.${format}`).send(content);
 });
 
+if (!existsSync(RESOLVER_PATH)) {
+  console.warn(
+    'File "/data/acme.json" does not exists, did you forget to mount certificate resolver store?'
+  );
+}
+
+console.log(`Starting serving certificates from %j`, RESOLVER_PATH);
 const srv = app.listen(8884, () => {
   console.log(`🚀 Traefik certificate explorer started @ %j`, srv.address());
 });

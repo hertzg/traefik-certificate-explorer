@@ -12,6 +12,8 @@ RUN chmod +x /docker-entrypoint.sh
 ENV NODE_ENV "production"
 ARG DIST_SRC="./dist"
 WORKDIR /app
-COPY $DIST_SRC/* ./dist/
+COPY ./public/ ./public/
+COPY ./views/ ./views/
+COPY $DIST_SRC/ ./dist/
 EXPOSE 8884
 ENTRYPOINT ["/sbin/tini", "--", "/docker-entrypoint.sh"]

@@ -9,8 +9,8 @@ block container
     tr
       th(scope="col") #
       th(scope="col") Domain
+      th(scope="col") Download
       th(scope="col") Validity Range
-      th(scope="col") Actions
     for entry, i in index
       tr
         th(scope="row") #{i + 1}
@@ -22,11 +22,6 @@ block container
                 for san in entry.sans
                   li #{san}
         td
-          | Since&nbsp;
-          abbr(title=entry.inspect.intlValidFrom) #{entry.inspect.distanceValidFrom}
-          | , Expires&nbsp;
-          abbr(title=entry.inspect.intlValidTo) #{entry.inspect.distanceValidTo}
-        td
           for file in entry.files
             a.btn.btn-outline-primary.btn-sm(
               role="button",
@@ -35,3 +30,8 @@ block container
               style="text-decoration: none;"
             ) #{file.title}#{" "}
             | &nbsp;
+        td
+          | Since&nbsp;
+          abbr(title=entry.inspect.intlValidFrom) #{entry.inspect.distanceValidFrom}
+          | , Expires&nbsp;
+          abbr(title=entry.inspect.intlValidTo) #{entry.inspect.distanceValidTo}
