@@ -9,7 +9,6 @@
             "groupName": "all non-major dependencies",
             "groupSlug": "all-minor-patch",
             "automerge": false,
-            "approvals_required": true,
             "labels": ["dependencies"]
         },
         {
