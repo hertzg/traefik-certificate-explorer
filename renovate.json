@@ -1,4 +1,7 @@
 {
+    "extends": [
+        ":semanticCommits"
+    ],
     "assigneesFromCodeOwners": true,
     "packageRules": [{
             "matchPackagePatterns": ["*"],
