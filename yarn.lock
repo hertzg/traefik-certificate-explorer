@@ -162,10 +162,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^16.10.2":
-  version: 16.10.2
-  resolution: "@types/node@npm:16.10.2"
-  checksum: 83c1c3c68e7500103908c3f16094e458879c840a719c15b6ea577f81fe1f24a1b3473bb6c8e8091fe79a82543ca7639c6b1088fcf80292ec091d1d1c9504a87e
+"@types/node@npm:^17.0.0":
+  version: 17.0.21
+  resolution: "@types/node@npm:17.0.21"
+  checksum: 89dcd2fe82f21d3634266f8384e9c865cf8af49685639fbdbd799bdd1040480fb1e8eeda2d3b9fce41edbe704d2a4be9f427118c4ae872e8d9bb7cbeb3c41a94
   languageName: node
   linkType: hard
 
@@ -1088,7 +1088,7 @@ resolve@^1.15.1:
     "@types/buffer-json": ^2.0.0
     "@types/express": ^4.17.13
     "@types/lodash": ^4.14.173
-    "@types/node": ^16.10.2
+    "@types/node": ^17.0.0
     buffer-json: ^2.0.0
     date-fns: ^2.24.0
     decoders: ^1.25.3
