@@ -370,13 +370,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debrief@npm:^1.5.0":
-  version: 1.5.0
-  resolution: "debrief@npm:1.5.0"
-  checksum: cff2e0af6415d2adcddf74d31e3f191606f7cf5b10cf102d96d8dc5c1d19edabafc637dc60d18d04fdb50985f2c57b273ccc6f23bc06e8af827c4a629d26b4dc
-  languageName: node
-  linkType: hard
-
 "debug@npm:2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
@@ -386,13 +379,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"decoders@npm:^1.25.3":
-  version: 1.25.3
-  resolution: "decoders@npm:1.25.3"
-  dependencies:
-    debrief: ^1.5.0
-    lemons: ^1.4.0
-  checksum: 23db0cc965888d9e8fe2dc60c92e1f316fcba5f1806077a4fafce3cc8085fce3cd31f5d7c6431c9159c7e3c41a8d1733eac479cac80f0e3d5ffc5d90ab7cd372
+"decoders@npm:^2.0.0":
+  version: 2.0.1
+  resolution: "decoders@npm:2.0.1"
+  checksum: ae89021568639dbdc21804e3111ba75e6f3fa7c91847a4953ebd6238c022becbc2ad2c2a324d73fc95382b46a3c451ffda2f631da59595b3d8820a16e76ad449
   languageName: node
   linkType: hard
 
@@ -668,13 +658,6 @@ __metadata:
     is-promise: ^2.0.0
     promise: ^7.0.1
   checksum: 1e019fde17a38766a5b96bccf0738156badc60cfa61e2ba8a8bbd3b855e7d5d7e17492b8a66e4aaabc39483e335d23217343ae32d0f7e5a81af42a95c3e075f9
-  languageName: node
-  linkType: hard
-
-"lemons@npm:^1.4.0":
-  version: 1.6.0
-  resolution: "lemons@npm:1.6.0"
-  checksum: 6b6359cf791a05159f2b1599a0d8f656e221de995ac2be834da19f693ec55b19174bd6494366259a2cfaa92972f9f0a43394602c7e1ee3100a15a7ca26605189
   languageName: node
   linkType: hard
 
@@ -1091,7 +1074,7 @@ resolve@^1.15.1:
     "@types/node": ^18.0.0
     buffer-json: ^2.0.0
     date-fns: ^2.24.0
-    decoders: ^1.25.3
+    decoders: ^2.0.0
     express: ^4.17.1
     lodash: ^4.17.21
     prettier: ^2.4.1
