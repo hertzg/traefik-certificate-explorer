@@ -1,4 +1,4 @@
-FROM node:21-alpine AS deps_prod
+FROM node:22-alpine AS deps_prod
 WORKDIR /app
 COPY ./package.json /yarn.lock ./
 RUN yarn install --production
